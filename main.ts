@@ -16,8 +16,6 @@ radio.onReceivedString(function (receivedString) {
             # # . # #
             `)
         tags += 1
-        datalogger.deleteLog(datalogger.DeleteType.Full)
-        datalogger.log(datalogger.createCV("1", tags))
         music.playSoundEffect(music.createSoundEffect(WaveShape.Square, 1600, 1, 255, 0, 300, SoundExpressionEffect.None, InterpolationCurve.Logarithmic), SoundExpressionPlayMode.UntilDone)
     }
 })
@@ -28,7 +26,6 @@ let namez
 let messagen = 1
 // make this your name
 let name = "Eli"
-music.playSoundEffect(music.builtinSoundEffect(soundExpression.giggle), SoundExpressionPlayMode.UntilDone)
 basic.forever(function () {
     radio.sendMessage(RadioMessage.message1)
     radio.sendString(name)
