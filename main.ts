@@ -1,12 +1,9 @@
 enum RadioMessage {
-    message1 = 49434,
-    message2 = 1435
+    message2 = 1435,
+    message1 = 49434
 }
-input.onGesture(Gesture.EightG, function () {
-    music.playMelody("C D C C D E F D ", 200)
-})
-input.onGesture(Gesture.FreeFall, function () {
-    music.playMelody("D F E D C C D C ", 200)
+input.onGesture(Gesture.ScreenDown, function () {
+    basic.clearScreen()
 })
 radio.onReceivedString(function (receivedString) {
     if (!(SN[SN.indexOf(receivedString)] == receivedString)) {
@@ -19,34 +16,39 @@ radio.onReceivedString(function (receivedString) {
             # # . # #
             `)
         tags += 1
+        datalogger.deleteLog(datalogger.DeleteType.Full)
+        datalogger.log(datalogger.createCV("1", tags))
+        music.playSoundEffect(music.createSoundEffect(WaveShape.Square, 1600, 1, 255, 0, 300, SoundExpressionEffect.None, InterpolationCurve.Logarithmic), SoundExpressionPlayMode.UntilDone)
     }
 })
 let breake = 0
 let tags = 0
 let SN: string[] = []
+let namez
 let messagen = 1
 // make this your name
 let name = "Eli"
+music.playSoundEffect(music.builtinSoundEffect(soundExpression.giggle), SoundExpressionPlayMode.UntilDone)
 basic.forever(function () {
     radio.sendMessage(RadioMessage.message1)
     radio.sendString(name)
 })
 basic.forever(function () {
-    if (input.logoIsPressed()) {
+    namez = SN.join(", ")
+if (input.logoIsPressed()) {
         basic.clearScreen()
         basic.pause(100)
-        basic.showString("Tags: " + tags)
+        basic.showString("New Tags: " + tags)
         basic.clearScreen()
         breake = 1
         tags = 0
     }
     if (breake == 0) {
         if (input.buttonIsPressed(Button.A)) {
-            basic.showString("" + (SN.length))
+            basic.showString("Tags: " + SN.length)
         }
         if (input.buttonIsPressed(Button.B)) {
-            let names: number[] = []
-            basic.showString("" + (names._pickRandom()))
+            basic.showString("" + (namez))
         }
     }
     breake = 0
